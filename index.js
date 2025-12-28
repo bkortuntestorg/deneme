@@ -1,6 +1,5 @@
 const _ = require('lodash');
 
-// Basit bir konfigürasyon nesnesi ve saldırganın gönderebileceği bir payload
 const config = {};
 const maliciousPayload = '{"constructor": {"prototype": {"isAdmin": true}}}';
 
