@@ -4,8 +4,7 @@
   "description": "Dependabot test projesi",
   "main": "index.js",
   "dependencies": {
-    // KRİTİK: Lodash'in bu sürümü (4.17.15) Prototype Pollution açığı içerir.
-    // Güvenli sürüm 4.17.19 ve üzeridir.
-    "lodash": "4.17.15"
+    "lodash": "4.17.15",
+    "axios": "0.21.0"
   }
 }
